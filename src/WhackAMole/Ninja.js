@@ -56,6 +56,71 @@ export default class Ninja extends React.Component {
               backgroundColor: "lightgray",
             }}
           ></div>
+          <div
+            style={{
+              position: "absolute",
+              top: "4px",
+              left: "100%",
+              width: "5px",
+              height: "5px",
+              borderRadius: "5px 5px 0 0",
+              backgroundColor: "black",
+              transform: "rotate(45deg)",
+            }}
+          ></div>
+          <div
+            style={{
+              position: "absolute",
+              top: "4px",
+              left: "100%",
+              width: "5px",
+              height: "5px",
+              borderRadius: "5px 5px 0 0",
+              backgroundColor: "black",
+              transform: "rotate(20deg)",
+            }}
+          ></div>
+          {this.props.ninjaGoingUp ? (
+            <div
+              style={{
+                position: "absolute",
+                top: "6px",
+                right: "calc(100% - 5px)",
+                width: "15px",
+                height: "5px",
+                backgroundColor: "black",
+                transform: "rotate(45deg)",
+              }}
+            ></div>
+          ) : null}
+          {this.props.ninjaGoingUp ? (
+            <div
+              style={{
+                position: "absolute",
+                bottom: "calc(100% - 2px)",
+                right: "calc(100% - -2px)",
+                width: "10px",
+                height: "2px",
+                backgroundColor: "silver",
+                transform: "rotate(45deg)",
+                borderRadius: "10px",
+              }}
+            ></div>
+          ) : null}
+          {this.props.ninjaGoingUp ? (
+            <div
+              style={{
+                position: "absolute",
+                bottom: "calc(100% - 2px)",
+                right: "calc(100% - -2px)",
+                width: "10px",
+                height: "2px",
+                backgroundColor: "silver",
+                transform: "rotate(-45deg)",
+                borderRadius: "10px",
+              }}
+            ></div>
+          ) : null}
         </div>
       </div>
     );
