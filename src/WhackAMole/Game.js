@@ -190,13 +190,13 @@ export default class Game extends React.Component {
           var left = e.nativeEvent.offsetX;
 
           if (left > 25) {
-            newState.mouseLeft = left - 12;
+            newState.mouseLeft = left;
           }
 
           var top = e.nativeEvent.offsetY;
 
           if (top > 25) {
-            newState.mouseTop = top - 12;
+            newState.mouseTop = top - 24;
           }
 
           this.setState(newState);
@@ -212,21 +212,24 @@ export default class Game extends React.Component {
           this.setState(newState);
         }}
       >
-        <div
-          style={{
-            width: "100%",
-            height: "5px",
-            backgroundColor: "red",
-            position: "relative",
-          }}
-        >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div>Life:</div>
           <div
             style={{
-              width: this.state.life * 10 + "%",
+              width: "100%",
               height: "5px",
-              backgroundColor: "lightblue",
+              backgroundColor: "red",
+              position: "relative",
             }}
-          ></div>
+          >
+            <div
+              style={{
+                width: this.state.life * 10 + "%",
+                height: "5px",
+                backgroundColor: "lightblue",
+              }}
+            ></div>
+          </div>
         </div>
         {this.state.start ? (
           <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -243,19 +246,28 @@ export default class Game extends React.Component {
               transform: "translate(-50%, -50%)",
             }}
           >
-            <img src={shuriken} alt="Shuriken" />
+            <div style={{ position: "relative" }}>
+              <img src={shuriken} alt="Shuriken" />
+              <Ninja
+                key={1000000}
+                id={100000}
+                fromLeft={50}
+                fromBottom={0}
+                timer={100}
+                ninjaGoingUp={true}
+                removeNinja={() => {}}
+              />
+            </div>
+            <div style={{ color: "black" }}>
+              <p className="pt-3">
+                In this whack-a-mole spin-off, try to whack the ninjas before
+                they throw their ninja stars at you! <br />
+                <b>Achieve the highest score!</b>
+              </p>
+            </div>
             <Button onClick={this.handleStartClick} className="mt-3">
               Start
-            </Button>{" "}
-            <Ninja
-              key={1000000}
-              id={100000}
-              fromLeft={50}
-              fromBottom={70}
-              timer={100}
-              ninjaGoingUp={true}
-              removeNinja={() => {}}
-            />
+            </Button>
           </Card>
         )}
 
