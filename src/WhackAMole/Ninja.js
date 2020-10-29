@@ -84,9 +84,9 @@ export default class Ninja extends React.Component {
             <div
               style={{
                 position: "absolute",
-                top: "6px",
-                right: "calc(100% - 5px)",
-                width: "15px",
+                top: "4px",
+                right: "calc(100% - 3px)",
+                width: "10px",
                 height: "5px",
                 backgroundColor: "black",
                 transform: "rotate(45deg)",
@@ -98,7 +98,7 @@ export default class Ninja extends React.Component {
               style={{
                 position: "absolute",
                 bottom: "calc(100% - 2px)",
-                right: "calc(100% - -2px)",
+                right: "calc(100% + 2px)",
                 width: "10px",
                 height: "2px",
                 backgroundColor: "silver",
@@ -112,7 +112,7 @@ export default class Ninja extends React.Component {
               style={{
                 position: "absolute",
                 bottom: "calc(100% - 2px)",
-                right: "calc(100% - -2px)",
+                right: "calc(100% + 2px)",
                 width: "10px",
                 height: "2px",
                 backgroundColor: "silver",

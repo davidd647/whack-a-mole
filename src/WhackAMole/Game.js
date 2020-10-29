@@ -1,5 +1,8 @@
 import React from "react";
 import Ninja from "./Ninja";
+import shuriken from "./shuriken.png";
+
+import Button from "react-bootstrap/Button";
 
 var defaults = {
   start: false,
@@ -199,8 +202,7 @@ export default class Game extends React.Component {
             <div>Score: {this.state.score}</div>
           </div>
         ) : (
-          <button
-            onClick={this.handleStartClick}
+          <div
             style={{
               top: "50%",
               left: "50%",
@@ -208,8 +210,20 @@ export default class Game extends React.Component {
               transform: "translate(-50%, -50%)",
             }}
           >
-            Start
-          </button>
+            <img src={shuriken} alt="Shuriken" />
+            <Button onClick={this.handleStartClick} className="mt-3">
+              Start
+            </Button>{" "}
+            <Ninja
+              key={1000000}
+              id={100000}
+              fromLeft={10}
+              fromBottom={100}
+              timer={0}
+              ninjaGoingUp={false}
+              removeNinja={() => {}}
+            />
+          </div>
         )}
 
         {this.state.ninjas.map((ninja) => {
