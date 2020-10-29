@@ -1,6 +1,9 @@
 shuriken image from:
 https://opengameart.org/content/high-poly-hira-shuriken
 
+hammer image from:
+https://opengameart.org/content/tool-icons
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

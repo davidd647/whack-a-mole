@@ -1,6 +1,7 @@
 import React from "react";
 import Ninja from "./Ninja";
 import shuriken from "./shuriken.png";
+import cursorImage from "../cursor.gif";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -18,6 +19,9 @@ var defaults = {
   newNinjaId: 0,
   score: 0,
   highScore: 0,
+  mouseLeft: 0,
+  mouseTop: 0,
+  mouseDown: false,
 };
 
 export default class Game extends React.Component {
@@ -48,7 +52,7 @@ export default class Game extends React.Component {
     const newState = this.state;
 
     newState.ninjas.push({
-      fromLeft: Math.round(Math.random() * 475),
+      fromLeft: 25 + Math.round(Math.random() * 450),
       fromBottom: Math.round(Math.random() * 475),
       id: newState.newNinjaId,
       timer: 1,
@@ -178,9 +182,42 @@ export default class Game extends React.Component {
           backgroundColor: "#345",
           margin: "0 auto",
           position: "relative",
-          // overflow: "hidden",
+          cursor: this.state.start ? "none" : null,
+        }}
+        onMouseMove={(e) => {
+          const newState = this.state;
+
+          if (e.nativeEvent.offsetX != 0) {
+            newState.mouseLeft = e.nativeEvent.offsetX - 12;
+          }
+          if (e.nativeEvent.offsetY != 0) {
+            newState.mouseTop = e.nativeEvent.offsetY - 12;
+          }
+
+          this.setState(newState);
+        }}
+        onMouseDown={() => {
+          const newState = this.state;
+          newState.mouseDown = true;
+          this.setState(newState);
+        }}
+        onMouseUp={() => {
+          const newState = this.state;
+          newState.mouseDown = false;
+          this.setState(newState);
         }}
       >
+        {this.state.start ? (
+          <img
+            src={cursorImage}
+            style={{
+              position: "absolute",
+              left: this.state.mouseLeft,
+              top: this.state.mouseTop,
+              transform: this.state.mouseDown ? "rotate(-90deg)" : "",
+            }}
+          />
+        ) : null}
         <div
           style={{
             width: "100%",
@@ -251,12 +288,27 @@ export default class Game extends React.Component {
               position: "absolute",
               left: "50%",
               top: "50%",
-              width: "80%",
               transform: "translate(-50%, -50%)",
             }}
           >
+            <div style={{ position: "relative" }}>
+              <img src={shuriken} alt="Shuriken" />
+              <Ninja
+                key={1000000}
+                id={100000}
+                fromLeft={50}
+                fromBottom={0}
+                timer={100}
+                ninjaGoingUp={true}
+                removeNinja={() => {}}
+              />
+            </div>
             <Card.Text
-              style={{ display: "flex", justifyContent: "space-around" }}
+              style={{
+                color: "#333",
+                display: "flex",
+                justifyContent: "space-around",
+              }}
             >
               <span>Your score: {this.state.score}</span>{" "}
               <span>High score: {this.state.highScore}</span>
