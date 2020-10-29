@@ -33,10 +33,11 @@ export default class Game extends React.Component {
   }
 
   endGame() {
-    console.log("game ended!");
     const newState = this.state;
     newState.finish = true;
     this.setState(newState);
+
+    this.endGameLoop();
   }
 
   addNinja() {
@@ -56,6 +57,8 @@ export default class Game extends React.Component {
   }
 
   removeNinja({ ninjaId, hurt }) {
+    if (this.state.finish) return;
+
     const newState = this.state;
 
     var index = newState.ninjas.findIndex((ninja) => ninja.id === ninjaId);
@@ -105,13 +108,14 @@ export default class Game extends React.Component {
     newState.addNinjaTimer++;
 
     newState.ninjas.forEach((ninja) => {
-      ninja.ninjaGoingUp ? (ninja.timer += 10) : (ninja.timer -= 3);
+      ninja.ninjaGoingUp ? (ninja.timer += 3) : (ninja.timer -= 10);
       if (ninja.timer >= 100) {
         ninja.ninjaGoingUp = false;
+        newState.life--;
       }
 
       if (ninja.timer <= 0) {
-        this.removeNinja({ ninjaId: ninja.id, hurt: true });
+        this.removeNinja({ ninjaId: ninja.id, hurt: false });
       }
     });
 
@@ -133,8 +137,6 @@ export default class Game extends React.Component {
     clearInterval(newState.intervalHolder);
     newState.intervalHolder = 0;
 
-    newState.start = false;
-
     this.setState(newState);
   }
 
@@ -146,7 +148,6 @@ export default class Game extends React.Component {
   handleRestartClick(e) {
     e.preventDefault();
 
-    this.endGameLoop();
     const newState = this.state;
 
     newState.start = false;
@@ -219,14 +220,28 @@ export default class Game extends React.Component {
               fromLeft={ninja.fromLeft}
               fromBottom={ninja.fromBottom}
               timer={ninja.timer}
+              ninjaGoingUp={ninja.ninjaGoingUp}
               removeNinja={this.removeNinja}
             />
           );
         })}
 
         {this.state.finish ? (
-          <div>
-            Your score: {this.state.score} High score: {this.state.highScore}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              width: "80%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <span>Your score: {this.state.score}</span>{" "}
+              <span>High score: {this.state.highScore}</span>
+            </div>
             <button onClick={this.handleRestartClick}>Again?</button>
           </div>
         ) : null}
