@@ -17,7 +17,7 @@ export default class Ninja extends React.Component {
           width: "25px",
           height: 25 * (this.props.timer / 100) + "px",
           position: "absolute",
-          backgroundColor: "black",
+          backgroundColor: "#333333",
           borderRadius: "5px 5px 0 0",
         }}
         onClick={() =>
@@ -64,7 +64,7 @@ export default class Ninja extends React.Component {
               width: "5px",
               height: "5px",
               borderRadius: "5px 5px 0 0",
-              backgroundColor: "black",
+              backgroundColor: "#333333",
               transform: "rotate(45deg)",
             }}
           ></div>
@@ -76,7 +76,7 @@ export default class Ninja extends React.Component {
               width: "5px",
               height: "5px",
               borderRadius: "5px 5px 0 0",
-              backgroundColor: "black",
+              backgroundColor: "#333333",
               transform: "rotate(20deg)",
             }}
           ></div>
@@ -88,7 +88,7 @@ export default class Ninja extends React.Component {
                 right: "calc(100% - 3px)",
                 width: "10px",
                 height: "5px",
-                backgroundColor: "black",
+                backgroundColor: "#333333",
                 transform: "rotate(45deg)",
               }}
             ></div>
