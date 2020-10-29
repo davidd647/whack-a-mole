@@ -182,7 +182,7 @@ export default class Game extends React.Component {
           backgroundColor: "#345",
           margin: "0 auto",
           position: "relative",
-          cursor: this.state.start && !this.state.finish ? "none" : null,
+          cursor: this.state.start && !this.state.finish ? "crosshair" : null,
         }}
         onMouseMove={(e) => {
           const newState = this.state;
@@ -212,17 +212,6 @@ export default class Game extends React.Component {
           this.setState(newState);
         }}
       >
-        {this.state.start && !this.state.finish ? (
-          <img
-            src={cursorImage}
-            style={{
-              position: "absolute",
-              left: this.state.mouseLeft,
-              top: this.state.mouseTop,
-              transform: this.state.mouseDown ? "rotate(-90deg)" : "",
-            }}
-          />
-        ) : null}
         <div
           style={{
             width: "100%",
@@ -322,6 +311,19 @@ export default class Game extends React.Component {
               Again?
             </Button>
           </Card>
+        ) : null}
+
+        {this.state.start && !this.state.finish ? (
+          <img
+            src={cursorImage}
+            style={{
+              position: "absolute",
+              left: this.state.mouseLeft,
+              top: this.state.mouseTop,
+              transform: this.state.mouseDown ? "rotate(-90deg)" : "",
+              pointerEvents: "none",
+            }}
+          />
         ) : null}
       </div>
     );
