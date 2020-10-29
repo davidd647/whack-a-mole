@@ -57,3 +57,7 @@ code {
 .ninja-star.ninja-star2 {
   transform: rotate(-45deg);
 }
+
+.super-font {
+  font-family: "Fredoka One", cursive;
+}

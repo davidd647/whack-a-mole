@@ -11,7 +11,7 @@ export default class WhackAMole extends React.Component {
   render() {
     return (
       <div>
-        <h1>Whack a Ninja</h1>
+        <h1 className="super-font">Whack a Ninja</h1>
         <Game />
       </div>
     );
