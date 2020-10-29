@@ -1,20 +1,26 @@
 import React from "react";
+import Ninja from "./Ninja";
+
+var defaults = {
+  start: false,
+  finish: false,
+  intervalHolder: null,
+  counter: 0,
+  seconds: 0,
+  life: 10,
+  addNinjaTimer: 0,
+  addNinjaTimerThreshold: 15,
+  ninjas: [],
+  newNinjaId: 0,
+  score: 0,
+  highScore: 0,
+};
 
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      start: false,
-      intervalHolder: null,
-      counter: 0,
-      seconds: 0,
-      life: 10,
-      ninjaTimer: 0,
-      ninjaTimerThreshold: 15,
-      ninjas: [],
-      newNinjaId: 0,
-    };
+    this.state = defaults;
 
     this.handleStartClick = this.handleStartClick.bind(this);
     this.startGameLoop = this.startGameLoop.bind(this);
@@ -22,16 +28,18 @@ export default class Game extends React.Component {
     this.addNinja = this.addNinja.bind(this);
     this.removeNinja = this.removeNinja.bind(this);
     this.endGame = this.endGame.bind(this);
+    this.endGameLoop = this.endGameLoop.bind(this);
+    this.handleRestartClick = this.handleRestartClick.bind(this);
   }
 
   endGame() {
     console.log("game ended!");
+    const newState = this.state;
+    newState.finish = true;
+    this.setState(newState);
   }
 
   addNinja() {
-    // put a ninja into the ninjas array
-    // just need coordinates...
-
     const newState = this.state;
 
     newState.ninjas.push({
@@ -44,22 +52,16 @@ export default class Game extends React.Component {
 
     newState.newNinjaId++;
 
-    console.log(newState.ninjas);
-
     this.setState(newState);
   }
 
   removeNinja({ ninjaId, hurt }) {
-    console.log({ ninjaId, hurt });
-
     const newState = this.state;
 
     var index = newState.ninjas.findIndex((ninja) => ninja.id === ninjaId);
     newState.ninjas.splice(index, 1);
 
-    if (hurt) {
-      newState.life--;
-    }
+    hurt ? newState.life-- : (newState.score += 1000);
 
     if (newState.life <= 0) {
       this.endGame();
@@ -71,19 +73,39 @@ export default class Game extends React.Component {
   gameLoop() {
     const newState = this.state;
 
-    if (newState.ninjaTimer > newState.ninjaTimerThreshold) {
-      newState.ninjaTimer = 0;
+    if (newState.addNinjaTimer > newState.addNinjaTimerThreshold) {
+      newState.addNinjaTimer = 0;
     }
-    if (newState.ninjaTimer == 0) {
+    if (newState.addNinjaTimer === 0) {
       this.addNinja();
+    }
+
+    if (newState.score >= 10000) {
+      newState.addNinjaTimerThreshold = 10;
+    } else if (newState.score >= 15000) {
+      newState.addNinjaTimerThreshold = 5;
+    } else if (newState.score >= 20000) {
+      newState.addNinjaTimerThreshold = 2;
+    } else if (newState.score >= 25000) {
+      newState.addNinjaTimerThreshold = 1;
+    } else if (newState.score >= 30000) {
+      newState.addNinjaTimerThreshold = 0.5;
+    } else if (newState.score >= 35000) {
+      newState.addNinjaTimerThreshold = 0.25;
+    } else if (newState.score >= 40000) {
+      newState.addNinjaTimerThreshold = 0.01;
+    }
+
+    if (newState.score > newState.highScore) {
+      newState.highScore = newState.score;
     }
 
     newState.counter++;
     newState.seconds = Math.round(newState.counter / 10);
-    newState.ninjaTimer++;
+    newState.addNinjaTimer++;
 
     newState.ninjas.forEach((ninja) => {
-      ninja.ninjaGoingUp ? (ninja.timer += 3) : (ninja.timer -= 3);
+      ninja.ninjaGoingUp ? (ninja.timer += 10) : (ninja.timer -= 3);
       if (ninja.timer >= 100) {
         ninja.ninjaGoingUp = false;
       }
@@ -105,9 +127,41 @@ export default class Game extends React.Component {
     this.setState(newState);
   }
 
+  endGameLoop() {
+    const newState = this.state;
+
+    clearInterval(newState.intervalHolder);
+    newState.intervalHolder = 0;
+
+    newState.start = false;
+
+    this.setState(newState);
+  }
+
   handleStartClick(e) {
     e.preventDefault();
     this.startGameLoop();
+  }
+
+  handleRestartClick(e) {
+    e.preventDefault();
+
+    this.endGameLoop();
+    const newState = this.state;
+
+    newState.start = false;
+    newState.finish = false;
+    newState.intervalHolder = null;
+    newState.counter = 0;
+    newState.seconds = 0;
+    newState.life = 10;
+    newState.addNinjaTimer = 0;
+    newState.addNinjaTimerThreshold = 15;
+    newState.ninjas = [];
+    newState.newNinjaId = 0;
+    newState.score = 0;
+
+    this.setState(newState);
   }
 
   render() {
@@ -139,29 +193,43 @@ export default class Game extends React.Component {
           ></div>
         </div>
         {this.state.start ? (
-          <div>Seconds: {this.state.seconds}</div>
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div>Seconds: {this.state.seconds}</div>
+            <div>Score: {this.state.score}</div>
+          </div>
         ) : (
-          <button onClick={this.handleStartClick}>Start</button>
+          <button
+            onClick={this.handleStartClick}
+            style={{
+              top: "50%",
+              left: "50%",
+              position: "absolute",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            Start
+          </button>
         )}
 
         {this.state.ninjas.map((ninja) => {
           return (
-            <div
+            <Ninja
               key={ninja.id}
-              style={{
-                left: ninja.fromLeft + "px",
-                bottom: ninja.fromBottom + "px",
-                width: "25px",
-                height: 25 * (ninja.timer / 100) + "px",
-                position: "absolute",
-                backgroundColor: "black",
-              }}
-              onClick={() =>
-                this.removeNinja({ ninjaId: ninja.id, hurt: false })
-              }
-            ></div>
+              id={ninja.id}
+              fromLeft={ninja.fromLeft}
+              fromBottom={ninja.fromBottom}
+              timer={ninja.timer}
+              removeNinja={this.removeNinja}
+            />
           );
         })}
+
+        {this.state.finish ? (
+          <div>
+            Your score: {this.state.score} High score: {this.state.highScore}
+            <button onClick={this.handleRestartClick}>Again?</button>
+          </div>
+        ) : null}
       </div>
     );
   }
