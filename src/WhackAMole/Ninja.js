@@ -12,8 +12,8 @@ export default class Ninja extends React.Component {
       <div
         key={this.props.id}
         style={{
-          left: this.props.fromLeft + "px",
-          bottom: this.props.fromBottom + "px",
+          left: this.props.fromLeft + "%",
+          bottom: this.props.fromBottom + "%",
           width: "25px",
           height: 25 * (this.props.timer / 100) + "px",
           position: "absolute",

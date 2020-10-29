@@ -52,8 +52,8 @@ export default class Game extends React.Component {
     const newState = this.state;
 
     newState.ninjas.push({
-      fromLeft: 25 + Math.round(Math.random() * 450),
-      fromBottom: Math.round(Math.random() * 475),
+      fromLeft: 2.5 + Math.round(Math.random() * 95),
+      fromBottom: Math.round(Math.random() * 95),
       id: newState.newNinjaId,
       timer: 1,
       ninjaGoingUp: true,
@@ -177,7 +177,7 @@ export default class Game extends React.Component {
     return (
       <div
         style={{
-          width: "500px",
+          maxWidth: "500px",
           height: "500px",
           backgroundColor: "#345",
           margin: "0 auto",
