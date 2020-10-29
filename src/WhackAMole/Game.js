@@ -336,6 +336,7 @@ export default class Game extends React.Component {
               transform: this.state.mouseDown ? "rotate(-90deg)" : "",
               pointerEvents: "none",
             }}
+            alt="cursor"
           />
         ) : null}
       </div>
