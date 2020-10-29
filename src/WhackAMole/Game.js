@@ -187,11 +187,16 @@ export default class Game extends React.Component {
         onMouseMove={(e) => {
           const newState = this.state;
 
-          if (e.nativeEvent.offsetX != 0) {
-            newState.mouseLeft = e.nativeEvent.offsetX - 12;
+          var left = e.nativeEvent.offsetX;
+
+          if (left > 25) {
+            newState.mouseLeft = left - 12;
           }
-          if (e.nativeEvent.offsetY != 0) {
-            newState.mouseTop = e.nativeEvent.offsetY - 12;
+
+          var top = e.nativeEvent.offsetY;
+
+          if (top > 25) {
+            newState.mouseTop = top - 12;
           }
 
           this.setState(newState);
