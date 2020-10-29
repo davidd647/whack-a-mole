@@ -3,6 +3,7 @@ import Ninja from "./Ninja";
 import shuriken from "./shuriken.png";
 
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 var defaults = {
   start: false,
@@ -86,20 +87,20 @@ export default class Game extends React.Component {
       this.addNinja();
     }
 
-    if (newState.score >= 10000) {
-      newState.addNinjaTimerThreshold = 10;
-    } else if (newState.score >= 15000) {
+    if (newState.score >= 40000) {
+      newState.addNinjaTimerThreshold = 1;
+    } else if (newState.score >= 35000) {
+      newState.addNinjaTimerThreshold = 2;
+    } else if (newState.score >= 30000) {
+      newState.addNinjaTimerThreshold = 3;
+    } else if (newState.score >= 25000) {
       newState.addNinjaTimerThreshold = 5;
     } else if (newState.score >= 20000) {
-      newState.addNinjaTimerThreshold = 2;
-    } else if (newState.score >= 25000) {
-      newState.addNinjaTimerThreshold = 1;
-    } else if (newState.score >= 30000) {
-      newState.addNinjaTimerThreshold = 0.5;
-    } else if (newState.score >= 35000) {
-      newState.addNinjaTimerThreshold = 0.25;
-    } else if (newState.score >= 40000) {
-      newState.addNinjaTimerThreshold = 0.01;
+      newState.addNinjaTimerThreshold = 7;
+    } else if (newState.score >= 15000) {
+      newState.addNinjaTimerThreshold = 8;
+    } else if (newState.score >= 10000) {
+      newState.addNinjaTimerThreshold = 10;
     }
 
     if (newState.score > newState.highScore) {
@@ -202,7 +203,8 @@ export default class Game extends React.Component {
             <div>Score: {this.state.score}</div>
           </div>
         ) : (
-          <div
+          <Card
+            className="p-3"
             style={{
               top: "50%",
               left: "50%",
@@ -217,13 +219,13 @@ export default class Game extends React.Component {
             <Ninja
               key={1000000}
               id={100000}
-              fromLeft={10}
-              fromBottom={100}
-              timer={0}
-              ninjaGoingUp={false}
+              fromLeft={50}
+              fromBottom={70}
+              timer={100}
+              ninjaGoingUp={true}
               removeNinja={() => {}}
             />
-          </div>
+          </Card>
         )}
 
         {this.state.ninjas.map((ninja) => {
@@ -241,7 +243,8 @@ export default class Game extends React.Component {
         })}
 
         {this.state.finish ? (
-          <div
+          <Card
+            className="p-3"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -252,12 +255,16 @@ export default class Game extends React.Component {
               transform: "translate(-50%, -50%)",
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <Card.Text
+              style={{ display: "flex", justifyContent: "space-around" }}
+            >
               <span>Your score: {this.state.score}</span>{" "}
               <span>High score: {this.state.highScore}</span>
-            </div>
-            <button onClick={this.handleRestartClick}>Again?</button>
-          </div>
+            </Card.Text>
+            <Button onClick={this.handleRestartClick} className="mt-3">
+              Again?
+            </Button>
+          </Card>
         ) : null}
       </div>
     );
