@@ -182,7 +182,7 @@ export default class Game extends React.Component {
           backgroundColor: "#345",
           margin: "0 auto",
           position: "relative",
-          cursor: this.state.start ? "none" : null,
+          cursor: this.state.start && !this.state.finish ? "none" : null,
         }}
         onMouseMove={(e) => {
           const newState = this.state;
@@ -212,7 +212,7 @@ export default class Game extends React.Component {
           this.setState(newState);
         }}
       >
-        {this.state.start ? (
+        {this.state.start && !this.state.finish ? (
           <img
             src={cursorImage}
             style={{
