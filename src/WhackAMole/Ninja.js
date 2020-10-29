@@ -17,7 +17,7 @@ export default class Ninja extends React.Component {
           width: "25px",
           height: 25 * (this.props.timer / 100) + "px",
           position: "absolute",
-          backgroundColor: "#333333",
+          backgroundColor: "#555555",
           borderRadius: "5px 5px 0 0",
         }}
         onClick={() =>
@@ -64,7 +64,7 @@ export default class Ninja extends React.Component {
               width: "5px",
               height: "5px",
               borderRadius: "5px 5px 0 0",
-              backgroundColor: "#333333",
+              backgroundColor: "#555555",
               transform: "rotate(45deg)",
             }}
           ></div>
@@ -76,50 +76,16 @@ export default class Ninja extends React.Component {
               width: "5px",
               height: "5px",
               borderRadius: "5px 5px 0 0",
-              backgroundColor: "#333333",
+              backgroundColor: "#555555",
               transform: "rotate(20deg)",
             }}
           ></div>
+          {this.props.ninjaGoingUp ? <div className="arm"></div> : null}
           {this.props.ninjaGoingUp ? (
-            <div
-              style={{
-                position: "absolute",
-                top: "4px",
-                right: "calc(100% - 3px)",
-                width: "10px",
-                height: "5px",
-                backgroundColor: "#333333",
-                transform: "rotate(45deg)",
-              }}
-            ></div>
+            <div className="ninja-star ninja-star1"></div>
           ) : null}
           {this.props.ninjaGoingUp ? (
-            <div
-              style={{
-                position: "absolute",
-                bottom: "calc(100% - 2px)",
-                right: "calc(100% + 2px)",
-                width: "10px",
-                height: "2px",
-                backgroundColor: "silver",
-                transform: "rotate(45deg)",
-                borderRadius: "10px",
-              }}
-            ></div>
-          ) : null}
-          {this.props.ninjaGoingUp ? (
-            <div
-              style={{
-                position: "absolute",
-                bottom: "calc(100% - 2px)",
-                right: "calc(100% + 2px)",
-                width: "10px",
-                height: "2px",
-                backgroundColor: "silver",
-                transform: "rotate(-45deg)",
-                borderRadius: "10px",
-              }}
-            ></div>
+            <div className="ninja-star ninja-star2"></div>
           ) : null}
         </div>
       </div>

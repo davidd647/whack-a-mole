@@ -13,3 +13,47 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@keyframes arm-animation {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(-45deg);
+  }
+}
+
+.arm {
+  position: absolute;
+  top: 4px;
+  right: calc(100% - 3px);
+  width: 10px;
+  height: 5px;
+  background-color: #555555;
+  /* background-color: #ddd; */
+  transform: rotate(45deg);
+  /* animation-name: arm-animation;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  transform-origin: 10px 2.5px; */
+}
+
+.ninja-star {
+  position: absolute;
+  bottom: calc(100% - 2px);
+  right: calc(100% + 2px);
+  width: 10px;
+  height: 2px;
+  background-color: silver;
+  border-radius: 10px;
+}
+
+.ninja-star.ninja-star1 {
+  transform: rotate(45deg);
+}
+
+.ninja-star.ninja-star2 {
+  transform: rotate(-45deg);
+}
