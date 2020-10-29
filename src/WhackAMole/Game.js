@@ -78,6 +78,10 @@ export default class Game extends React.Component {
       this.endGame();
     }
 
+    if (newState.score > newState.highScore) {
+      newState.highScore = newState.score;
+    }
+
     this.setState(newState);
   }
 
@@ -105,10 +109,6 @@ export default class Game extends React.Component {
       newState.addNinjaTimerThreshold = 8;
     } else if (newState.score >= 10000) {
       newState.addNinjaTimerThreshold = 10;
-    }
-
-    if (newState.score > newState.highScore) {
-      newState.highScore = newState.score;
     }
 
     newState.counter++;
@@ -213,11 +213,12 @@ export default class Game extends React.Component {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div>Life:</div>
+          <div className="pt-3">Life:</div>
           <div
             style={{
-              width: "100%",
               height: "5px",
+              width: "50%",
+              margin: "0 auto",
               backgroundColor: "red",
               position: "relative",
             }}
