@@ -61,3 +61,9 @@ code {
 .super-font {
   font-family: "Fredoka One", cursive;
 }
+
+@media only screen and (max-width: 600px) {
+  .cursor {
+    display: none;
+  }
+}

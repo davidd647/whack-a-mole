@@ -328,6 +328,7 @@ export default class Game extends React.Component {
 
         {this.state.start && !this.state.finish ? (
           <img
+            className="cursor"
             src={cursorImage}
             style={{
               position: "absolute",
